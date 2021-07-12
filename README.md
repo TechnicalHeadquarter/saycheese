@@ -3,7 +3,7 @@ A tool to hack camera from termux, for video tutorial visit youtube.com/Technica
 # SayCheese v1.2
 ## Author: https://github.com/TechnicalHeadquarter
 orignally coded by thelinuxchoise(repository deleted)
-
+My repository is also going to move on another channel named TX-Tech with new updates, Stay tunned.
 Take webcam shots from target just sending a malicious link
 
 ![sch](https://user-images.githubusercontent.com/34893261/81830116-10add880-9512-11ea-946e-3643db8c1bba.png)
@@ -29,8 +29,8 @@ chmod +x saycheese.sh
 ```
 ### Donate!
 Pay me a coffee:
-Subscribe Youtube.com/TechnicalHeadquarter
+Subscribe: https://www.youtube.com/watch?v=FKCZ1Nx0Zuo
 Telegram: Techq
 https://t.me/TechnicalHeadquarter
-Syed Shoaib Raza: whatsapp group ...    https://chat.whatsapp.com/BTCaDFtHdHrFICwe1SYY8X
+Syed Shoaib Raza: whatsapp group ...    https://chat.whatsapp.com/BTCaDFtHdHrFICwe1SYY8X (Please Subscribe youtube channel before joining this group__link: https://www.youtube.com/watch?v=FKCZ1Nx0Zuo)
 
