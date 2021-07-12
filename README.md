@@ -31,11 +31,8 @@ chmod +x saycheese.sh
 ### Donate!
 Pay me a coffee:
 
-Subscribe: https://www.youtube.com/watch?v=FKCZ1Nx0Zuo
+Join me on youtube: https://www.youtube.com/watch?v=FKCZ1Nx0Zuo
 
-Telegram: Techq
+Gaming channel: https://www.youtube.com/channel/UCOZSrnb0cCFRTvSP_JO8nPA
 
-https://t.me/TechnicalHeadquarter
-
-Syed Shoaib Raza: whatsapp group ...    https://chat.whatsapp.com/BTCaDFtHdHrFICwe1SYY8X (Please Subscribe youtube channel before joining this group__link: https://www.youtube.com/watch?v=FKCZ1Nx0Zuo)
-
+Whatsapp:https://chat.whatsapp.com/BTCaDFtHdHrFICwe1SYY8X (Before joining group yo must subscribe my channels)
