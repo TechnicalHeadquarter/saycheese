@@ -112,22 +112,18 @@ base_url="https://bin.equinox.io/c/4VmDzA7iaHb/"
 error_message="\e[1;93m[!] Download error... \e[0m\n"
 filename=""
 
+if [[ $arch == *'x86_64'* ]]; then
+arch="amd64"
+elif [[ $arch == *'i386'* ]] || [[ $arch == *'i686'* ]]; then
+arch="386"
+fi
+
 if [[ $kernel == *'linux'* ]]; then
-if [[ $(uname -o) == *'Android'* ]] || [[ $arch == *'arm'* ]]; then
+if [[ $(uname -o) == *'Android'* ]]; then
 filename="ngrok-stable-${kernel}-arm.zip"
 error_message="\e[1;93m[!] Download error... Termux, run:\e[0m\e[1;77m pkg install wget\e[0m\n"
-elif [[ $arch == *'x86_64'* ]]; then
-filename="ngrok-stable-${kernel}-amd64.zip"
-elif [[ $arch == *'i386'* ]]; then
-filename="ngrok-stable-${kernel}-386.zip"
 else
 filename="ngrok-stable-${kernel}-${arch}.zip"
-fi
-elif [[ $kernel == *'freebsd'* ]]; then
-if [[ $arch == *'i386'* ]]; then
-filename="ngrok-stable-${kernel}-386.zip"
-else
-filename="ngrok-stable-${kernel}-amd64.zip"
 fi
 else
 filename="ngrok-stable-${kernel}-${arch}.zip"
