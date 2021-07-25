@@ -113,32 +113,28 @@ printf "\e[1;92m[\e[0m+\e[1;92m] Downloading Ngrok...\n"
 arch=$(uname -m | tr "[:upper:]" "[:lower:]")
 kernel=$(uname | tr "[:upper:]" "[:lower:]")
 base_url="https://bin.equinox.io/c/4VmDzA7iaHb/"
-url=""
 error_message="\e[1;93m[!] Download error... \e[0m\n"
 filename=""
 
 if [[ $kernel == *'linux'* ]]; then
 if [[ $(uname -o) == *'Android'* ]] || [[ $arch == *'arm'* ]]; then
 filename="ngrok-stable-${kernel}-arm.zip"
-url="${base_url}${filename}"
 error_message="\e[1;93m[!] Download error... Termux, run:\e[0m\e[1;77m pkg install wget\e[0m\n"
+elif [[ $arch == *'x86_64'* ]]; then
+filename="ngrok-stable-${kernel}-386.zip"
 else
 filename="ngrok-stable-${kernel}-${arch}.zip"
-url="${base_url}${filename}"
 fi
 elif [[ $kernel == *'freebsd'* ]]; then
 if [[ $arch == *'i386'* ]]; then
 filename="ngrok-stable-${kernel}-386.zip"
-url="${base_url}${filename}"
 else
 filename="ngrok-stable-${kernel}-amd64.zip"
-url="${base_url}${filename}"
 fi
 else
 filename="ngrok-stable-${kernel}-${arch}.zip"
-url="${base_url}${filename}"
 fi
-
+url="${base_url}${filename}"
 wget --no-check-certificate $url > /dev/null 2>&1
 
 if [[ -e $filename ]]; then
