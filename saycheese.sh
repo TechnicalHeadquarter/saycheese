@@ -109,71 +109,45 @@ else
 command -v unzip > /dev/null 2>&1 || { echo >&2 "I require unzip but it's not installed. Install it(apt install unzip). Aborting."; exit 1; }
 command -v wget > /dev/null 2>&1 || { echo >&2 "I require wget but it's not installed. Install it(apt install wget). Aborting."; exit 1; }
 printf "\e[1;92m[\e[0m+\e[1;92m] Downloading Ngrok...\n"
-arch=$(uname -a | grep -o 'arm' | head -n1)
-arch2=$(uname -a | grep -o 'Android' | head -n1)
-arch3=$(uname -a | grep -o 'amd64' | head -n1)
-kernel=$(uname)
 
-if [[ $kernel == *'Darwin'* ]]; then
-if [[ $arch == *'arm'* ]]; then
-wget --no-check-certificate https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-darwin-arm64.zip > /dev/null 2>&1
+arch=$(uname -m | tr "[:upper:]" "[:lower:]")
+kernel=$(uname | tr "[:upper:]" "[:lower:]")
+base_url="https://bin.equinox.io/c/4VmDzA7iaHb/"
+url=""
+error_message="\e[1;93m[!] Download error... \e[0m\n"
+filename=""
 
-if [[ -e ngrok-stable-darwin-arm64.zip ]]; then
-unzip ngrok-stable-darwin-arm64.zip > /dev/null 2>&1
+if [[ $kernel == *'linux'* ]]; then
+if [[ $(uname -o) == *'Android'* ]] || [[ $arch == *'arm'* ]]; then
+filename="ngrok-stable-${kernel}-arm.zip"
+url="${base_url}${filename}"
+error_message="\e[1;93m[!] Download error... Termux, run:\e[0m\e[1;77m pkg install wget\e[0m\n"
+else
+filename="ngrok-stable-${kernel}-${arch}.zip"
+url="${base_url}${filename}"
+fi
+elif [[ $kernel == *'freebsd'* ]]; then
+if [[ $arch == *'i386'* ]]; then
+filename="ngrok-stable-${kernel}-386.zip"
+url="${base_url}${filename}"
+else
+filename="ngrok-stable-${kernel}-amd64.zip"
+url="${base_url}${filename}"
+fi
+else
+filename="ngrok-stable-${kernel}-${arch}.zip"
+url="${base_url}${filename}"
+fi
+
+wget --no-check-certificate $url > /dev/null 2>&1
+
+if [[ -e $filename ]]; then
+unzip $filename > /dev/null 2>&1
 chmod +x ngrok
-rm -rf ngrok-stable-darwin-arm64.zip
+rm -rf $filename
 else
-printf "\e[1;93m[!] Download error... Termux, run:\e[0m\e[1;77m pkg install wget\e[0m\n"
+printf "${error_message}"
 exit 1
-fi
-else
-wget --no-check-certificate https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-darwin-amd64.zip > /dev/null 2>&1
-
-if [[ -e ngrok-stable-darwin-amd64.zip ]]; then
-unzip ngrok-stable-darwin-amd64.zip > /dev/null 2>&1
-chmod +x ngrok
-rm -rf ngrok-stable-darwin-amd64.zip
-else
-printf "\e[1;93m[!] Download error... Termux, run:\e[0m\e[1;77m pkg install wget\e[0m\n"
-exit 1
-fi
-fi
-else
-if [[ $arch == *'arm'* ]] || [[ $arch2 == *'Android'* ]] ; then
-wget --no-check-certificate https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip > /dev/null 2>&1
-
-if [[ -e ngrok-stable-linux-arm.zip ]]; then
-unzip ngrok-stable-linux-arm.zip > /dev/null 2>&1
-chmod +x ngrok
-rm -rf ngrok-stable-linux-arm.zip
-else
-printf "\e[1;93m[!] Download error... Termux, run:\e[0m\e[1;77m pkg install wget\e[0m\n"
-exit 1
-fi
-
-elif [[ $arch3 == *'amd64'* ]] ; then
-
-wget --no-check-certificate https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip > /dev/null 2>&1
-
-if [[ -e ngrok-stable-linux-amd64.zip ]]; then
-unzip ngrok-stable-linux-amd64.zip > /dev/null 2>&1
-chmod +x ngrok
-rm -rf ngrok-stable-linux-amd64.zip
-else
-printf "\e[1;93m[!] Download error... \e[0m\n"
-exit 1
-fi
-else
-wget --no-check-certificate https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip > /dev/null 2>&1
-if [[ -e ngrok-stable-linux-386.zip ]]; then
-unzip ngrok-stable-linux-386.zip > /dev/null 2>&1
-chmod +x ngrok
-rm -rf ngrok-stable-linux-386.zip
-else
-printf "\e[1;93m[!] Download error... \e[0m\n"
-exit 1
-fi
-fi
 fi
 fi
 
