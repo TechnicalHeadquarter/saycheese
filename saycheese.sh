@@ -134,8 +134,8 @@ fi
 else
 filename="ngrok-stable-${kernel}-${arch}.zip"
 fi
-url="${base_url}${filename}"
-wget --no-check-certificate $url > /dev/null 2>&1
+
+wget --no-check-certificate $base_url$filename > /dev/null 2>&1
 
 if [[ -e $filename ]]; then
 unzip $filename > /dev/null 2>&1
