@@ -118,13 +118,9 @@ elif [[ $arch == *'i386'* ]] || [[ $arch == *'i686'* ]]; then
 arch="386"
 fi
 
-if [[ $kernel == *'linux'* ]]; then
-if [[ $(uname -o) == *'Android'* ]]; then
+if [[ $kernel == *'linux'* ]] && [[ $(uname -o) == *'Android'* ]]; then
 filename="ngrok-stable-${kernel}-arm.zip"
 error_message="\e[1;93m[!] Download error... Termux, run:\e[0m\e[1;77m pkg install wget\e[0m\n"
-else
-filename="ngrok-stable-${kernel}-${arch}.zip"
-fi
 else
 filename="ngrok-stable-${kernel}-${arch}.zip"
 fi
