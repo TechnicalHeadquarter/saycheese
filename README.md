@@ -19,7 +19,7 @@ Take webcam shots from target just sending a malicious link
 
 ## Legal disclaimer:
 
-Usage of SayCheese for attacking targets without prior mutual consent is illegal. It's the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program 
+Usage of SayCheese for attacking targets without prior mutual consent is illegal. It's the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
 ## Installing (Tested on Kali Linux 2020.1 and Latest Termux 23-septmber-2020):
 
 ```
@@ -41,6 +41,6 @@ Whatsapp:https://chat.whatsapp.com/BTCaDFtHdHrFICwe1SYY8X (Before joining group 
 
 # support me
 
-<a href="https://www.youtube.com/watch?v=FKCZ1Nx0Zuo"><img src="https://img.shields.io/badge/subcribe-YouTube-red.svg"> 
-  
-  <a href="https://www.youtube.com/channel/UCOZSrnb0cCFRTvSP_JO8nPA"><img src="https://img.shields.io/badge/subcribe-YouTube-red.svg"> 
+<a href="https://www.youtube.com/watch?v=FKCZ1Nx0Zuo"><img src="https://img.shields.io/badge/subcribe-YouTube-red.svg">
+
+  <a href="https://www.youtube.com/channel/UCOZSrnb0cCFRTvSP_JO8nPA"><img src="https://img.shields.io/badge/subcribe-YouTube-red.svg">
