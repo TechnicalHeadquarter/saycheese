@@ -22,6 +22,5 @@ Usage of SayCheese for attacking targets without prior mutual consent is illegal
 ```
 git clone https://github.com/angelluis24/saycheese
 cd saycheese
-chmod +x saycheese.sh
 ./saycheese.sh
 ```
