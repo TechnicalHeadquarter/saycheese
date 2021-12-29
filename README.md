@@ -1,7 +1,6 @@
 # SayCheese v1.2
 
 orignally coded by thelinuxchoise(repository deleted)
-My repository is also going to move on another channel named TX-Tech with new updates, Stay tunned.
 
 Take webcam shots from target just sending a malicious link
 
