@@ -20,10 +20,10 @@ Take webcam shots from target just sending a malicious link
 ## Legal disclaimer:
 
 Usage of SayCheese for attacking targets without prior mutual consent is illegal. It's the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program 
-## Installing (Tested on Kali Linux 2020.1 and Latest Termux 23-septmber-2020):
+## Installing (Tested on Ubuntu 20.04.3 and Termux):
 
 ```
-git clone https://github.com/Technicalheadquarter/saycheese
+git clone https://github.com/angelluis24/saycheese
 cd saycheese
 chmod +x saycheese.sh
 ./saycheese.sh
