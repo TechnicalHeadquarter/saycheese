@@ -1,7 +1,5 @@
-# saycheese
-A tool to hack camera from termux, for video tutorial visit youtube.com/TechnicalHeadquarter
 # SayCheese v1.2
-## Author: https://github.com/TechnicalHeadquarter
+
 orignally coded by thelinuxchoise(repository deleted)
 My repository is also going to move on another channel named TX-Tech with new updates, Stay tunned.
 
