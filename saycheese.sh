@@ -43,10 +43,10 @@ dependencies() {
 
 printf "\e[1;92m Wait a moment...\e[0m\n\n"
 
-command -v php > /dev/null 2>&1 || apt intall php > /dev/null 2>&1 || apt-get install php > /dev/null 2>&1 || { echo >&2 "I require php but it's not installed.\n"; exit 1; }
-command v- unzip  > /dev/null 2>&1 || apt intall unzip > /dev/null 2>&1 || sudo apt-get install unzip > /dev/null 2>&1 || { echo >&2 "I require unzip but it's not installed.\n"; exit 1; }
-command -v wget  > /dev/null 2>&1 || apt intall wget > /dev/null 2>&1 || sudo apt-get install wget > /dev/null 2>&1 || { echo >&2 "I require wget but it's not installed.\n"; exit 1;}
-command v- httrack > /dev/null 2>&1 || apt-get install httrack > /dev/null 2>&1 || sudo apt-get install httrack > /dev/null 2>&1 || { echo >&2 "I require httrack but it's not installed.\n"; exit 1; }
+command -v php > /dev/null 2>&1 || apt install php > /dev/null 2>&1 || sudo apt-get install php > /dev/null 2>&1 || { echo >&2 "I require php but it's not installed.\n"; exit 1; }
+command -v unzip > /dev/null 2>&1 || apt install unzip > /dev/null 2>&1 || sudo apt-get install unzip > /dev/null 2>&1 || { echo >&2 "I require unzip but it's not installed.\n"; exit 1; }
+command -v wget > /dev/null 2>&1 || apt install wget > /dev/null 2>&1 || sudo apt-get install wget > /dev/null 2>&1 || { echo >&2 "I require wget but it's not installed.\n"; exit 1;}
+command -v httrack > /dev/null 2>&1 || apt-get install httrack > /dev/null 2>&1 || sudo apt-get install httrack > /dev/null 2>&1 || { echo >&2 "I require httrack but it's not installed.\n"; exit 1; }
 
 clear
 
