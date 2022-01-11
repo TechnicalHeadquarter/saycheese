@@ -4,7 +4,7 @@ orignally coded by thelinuxchoise(repository deleted)
 
 Take webcam shots from target just sending a malicious link
 
-![sch](https://raw.githubusercontent.com/angelluis24/saycheese/master/nb.png)
+![sch](https://lh4.googleusercontent.com/PZQKa5e6hH7_Sl5kcwBx9WZJsbFYpXeKcCSU7cbqVJtrrIdLo90mncaap2GYmDqJeUQaL9ZCteAuGJMrE4Hl=w1366-h666)
 
 # How it works?
 <p>The tool generates a malicious HTTPS page using Ngrok Port Forwarding method, and a javascript code to perform cam requests using MediaDevices.getUserMedia. </p>
