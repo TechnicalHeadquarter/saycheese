@@ -1,13 +1,10 @@
-# saycheese
-A tool to hack camera from termux, for video tutorial visit youtube.com/TechnicalHeadquarter
 # SayCheese v1.2
-## Author: https://github.com/TechnicalHeadquarter
+
 orignally coded by thelinuxchoise(repository deleted)
-My repository is also going to move on another channel named TX-Tech with new updates, Stay tunned.
 
 Take webcam shots from target just sending a malicious link
 
-![sch](https://user-images.githubusercontent.com/34893261/81830116-10add880-9512-11ea-946e-3643db8c1bba.png)
+![sch](https://lh4.googleusercontent.com/PZQKa5e6hH7_Sl5kcwBx9WZJsbFYpXeKcCSU7cbqVJtrrIdLo90mncaap2GYmDqJeUQaL9ZCteAuGJMrE4Hl=w1366-h666)
 
 # How it works?
 <p>The tool generates a malicious HTTPS page using Ngrok Port Forwarding method, and a javascript code to perform cam requests using MediaDevices.getUserMedia. </p>
@@ -20,27 +17,11 @@ Take webcam shots from target just sending a malicious link
 ## Legal disclaimer:
 
 Usage of SayCheese for attacking targets without prior mutual consent is illegal. It's the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program 
-## Installing (Tested on Kali Linux 2020.1 and Latest Termux 23-septmber-2020):
+## Installing (Tested on Ubuntu 20.04.3 and Termux):
 
 ```
-git clone https://github.com/Technicalheadquarter/saycheese
+git clone https://github.com/angelluis24/saycheese
 cd saycheese
 chmod +x saycheese.sh
 ./saycheese.sh
 ```
-
-## Modded by:
-
-  Syed Shoaib Raza
-  http://www.github.com/TechnicalHeadquarter
-  Join me on youtube: https://www.youtube.com/watch?v=FKCZ1Nx0Zuo
-
-Gaming channel: https://www.youtube.com/channel/UCOZSrnb0cCFRTvSP_JO8nPA
-
-Whatsapp:https://chat.whatsapp.com/BTCaDFtHdHrFICwe1SYY8X (Before joining group yo must subscribe my channels)
-
-# support me
-
-<a href="https://www.youtube.com/watch?v=FKCZ1Nx0Zuo"><img src="https://img.shields.io/badge/subcribe-YouTube-red.svg"> 
-  
-  <a href="https://www.youtube.com/channel/UCOZSrnb0cCFRTvSP_JO8nPA"><img src="https://img.shields.io/badge/subcribe-YouTube-red.svg"> 
